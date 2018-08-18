@@ -65,6 +65,9 @@ class ReSelenium:
     def set_window_size(self,wide,high):
         self.driver.set_window_size(wide,high)
 
+    def test(self):
+        pass
+    
 
 
 
