@@ -22,9 +22,6 @@ class ReSelenium:
             raise NameError("找不到浏览器 {0} ,你可以使用 'ie','ff',"
                             "'chrome'.".format( browser))
 
-
-        
-
     def explicit_wait(self,mathod,path,message):
         if mathod == 'id':
             WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.ID,path)),message)
@@ -61,6 +58,13 @@ class ReSelenium:
                     self.driver.refresh()
                 else:
                     print('无法访问到网页！')
+
+    def max_window(self):
+        self.driver.maximize_window()
+
+    def set_window_size(self,wide,high):
+        self.driver.set_window_size(wide,high)
+
 
 
 
