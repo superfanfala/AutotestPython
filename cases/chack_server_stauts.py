@@ -2,7 +2,7 @@
 from basic_function.login_server import LoginServer
 from config import basic_config
 from basic_function.oprate_server import OprateServer
-import re
+
 
 class CheckServer:
     def __init__(self):
@@ -17,31 +17,20 @@ class CheckServer:
         result=self.oserver.execute_cmd('servermgr status all')
         result_str=result.split(' ')
         result_list=list(result_str)
+        print(result_list)
         last_result=[]
         for i in result_list:
             last_result=last_result+i.split('\n')
-        l_list=map(str,last_result)
-        print(l_list)
-        for j in l_list:
-            reg = re.compile(r"(?<=xlb[.*m).*")
-            match = reg.search('abc123')
-            print match.group(0)
-        # result_dict=dict(zip(l_list[0::2],l_list[1::2]))
-        # print(result_dict)
+        result_dict=dict(zip(last_result[0::2],last_result[1::2]))
 
+        for i in result_dict.keys():
+            print(i)
+            print(type(i))
 
-        # print(result_dict)
-        # for i in result_dict.keys():
-        #     k=result_dict[i]
-        #     str_k=str(k)
-        #     print(result_dict[i])
-        #     v=result_dict[str_k]
-        #     if result_dict[str_k] == 'Running':
-        #         print(result_dict[i])
-        #         print(type(result_dict[i]))
-        #         print('aaaa')
-
-
+        # if result_dict['configservice']=='Running':
+        #     print('*******')
+        # else:
+        #     print('xxxxxxx')
 
 
 if __name__ == '__main__':

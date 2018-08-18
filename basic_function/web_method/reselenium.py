@@ -6,7 +6,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-
 class ReSelenium:
     def __init__(self,browser='chrome'):
         dr=''
@@ -23,40 +22,57 @@ class ReSelenium:
             raise NameError("找不到浏览器 {0} ,你可以使用 'ie','ff',"
                             "'chrome'.".format( browser))
 
-    def explicit_wait(self):
-        WebDriverWait(self.driver,10,0.5).until(EC.presence_of_all_elements_located((By.LINK_TEXT,'text')))
 
-    element=''
-    def get_element(self,method='id',path=None):
-        if method == 'id':
-            element=self.driver.find_element_by_id(path)
-        elif method == 'xpath':
-            element=self.driver.find_element_by_xpath(path)
-        elif method == 'css':
-            element=self.driver.find_element_by_css_selector(path)
-        elif method == 'class':
-            element=self.driver.find_element_by_class_name(path)
-        return element
+        
 
-    def open_url(self,url):
+    def explicit_wait(self,mathod,path,message):
+        if mathod == 'id':
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.ID,path)),message)
+        elif mathod == 'xpath':
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.XPATH)),message)
+        elif mathod == 'css':
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR)),message)
+        elif mathod == 'class':
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.CLASS_NAME)),message)
+        elif mathod == 'name':
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located((By.NAME)),message)
+
+    def get_element(self,mathod='id',path=None):
+        if mathod == 'id':
+            self.driver.find_element_by_id(path)
+        elif mathod == 'xpath':
+            self.driver.find_element_by_xpath(path)
+        elif mathod == 'css':
+            self.driver.find_element_by_css_selector(path)
+        elif mathod == 'class':
+            self.driver.find_element_by_class_name(path)
+        elif mathod == 'name':
+            self.driver.find_element_by_name(path)
+
+    def open_url(self,url,mathod,path):
         self.driver.get(url)
-
-    def click(self,method,path):
-        ele=self.get_element(method,path)
-        ele.click()
-
-    def input(self,method,path,text):
-        ele=self.get_element(method,path)
-        ele.send_keys(text)
-
-    def swich_to_frame(self,path):
-        self.driver.switch_to_frame(path)
-
+        for i in range(5):
+            try:
+                self.get_element(mathod,path)
+                print('正常打开网页')
+                break
+            except:
+                if i != 4:
+                    self.driver.refresh()
+                else:
+                    print('无法访问到网页！')
 
 
 
 
 
+
+
+
+
+
+if __name__ == '__main__':
+    ReSelenium().open_url('http://www.baidu.com','id','su')
 
 
 
