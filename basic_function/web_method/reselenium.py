@@ -65,9 +65,20 @@ class ReSelenium:
     def set_window_size(self,wide,high):
         self.driver.set_window_size(wide,high)
 
-    def test(self):
-        pass
-    
+    def input(self,mathod,path,text):
+        ele=self.get_element(mathod,path)
+        ele.send_keys(text)
+
+    def clear_input(self,mathod,path,text):
+        ele=self.get_element(mathod,path)
+        ele.clear()
+        ele.send_keys(text)
+
+    def click(self,mathod,path):
+        ele=self.get_element(mathod,path)
+        ele.click()
+
+
 
 
 
