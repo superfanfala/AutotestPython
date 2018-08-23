@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 class ReSelenium:
     def __init__(self,browser='chrome'):
@@ -36,15 +37,16 @@ class ReSelenium:
 
     def get_element(self,mathod='id',path=None):
         if mathod == 'id':
-            self.driver.find_element_by_id(path)
+            ele=self.driver.find_element_by_id(path)
         elif mathod == 'xpath':
-            self.driver.find_element_by_xpath(path)
+            ele=self.driver.find_element_by_xpath(path)
         elif mathod == 'css':
-            self.driver.find_element_by_css_selector(path)
+            ele=self.driver.find_element_by_css_selector(path)
         elif mathod == 'class':
-            self.driver.find_element_by_class_name(path)
+            ele=self.driver.find_element_by_class_name(path)
         elif mathod == 'name':
-            self.driver.find_element_by_name(path)
+            ele=self.driver.find_element_by_name(path)
+        return ele
 
     def open_url(self,url,mathod,path):
         self.driver.get(url)
@@ -77,7 +79,9 @@ class ReSelenium:
     def click(self,mathod,path):
         ele=self.get_element(mathod,path)
         ele.click()
-
+    def move_to_ele(self,mathod,path):
+        ele=self.get_element(mathod,path)
+        ActionChains(self.driver).move_to_element(ele)
 
 
 
@@ -90,7 +94,12 @@ class ReSelenium:
 
 
 if __name__ == '__main__':
-    ReSelenium().open_url('http://www.baidu.com','id','su')
+    dr=ReSelenium()
+    dr.open_url('http://www.baidu.com','id','su')
+    dr.max_window()
+    dr.input('id','kw','selenium')
+    dr.click('id','su')
+
 
 
 
