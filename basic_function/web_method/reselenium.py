@@ -86,7 +86,9 @@ class ReSelenium:
         self.driver.switch_to_alert().accept()
     def dismise(self):
         self.driver.switch_to_alert().dismiss()
-        
+
+    def swich_to_frame(self,path):
+        self.driver.switch_to_frame(path)
 
 
 
