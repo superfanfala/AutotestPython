@@ -82,6 +82,11 @@ class ReSelenium:
     def move_to_ele(self,mathod,path):
         ele=self.get_element(mathod,path)
         ActionChains(self.driver).move_to_element(ele)
+    def accept_alert(self):
+        self.driver.switch_to_alert().accept()
+    def dismise(self):
+        self.driver.switch_to_alert().dismiss()
+        
 
 
 
